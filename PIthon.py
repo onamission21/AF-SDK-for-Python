@@ -10,7 +10,7 @@ clr.AddReference('System.Collections')
 from System import Object
 from System.Collections import *
 
-# This imports the difference AF classes
+# This imports the different AF classes
 from OSIsoft.AF.PI import *  
 from OSIsoft.AF.Search import *  
 from OSIsoft.AF.Asset import *  
@@ -41,10 +41,10 @@ def Get_Tag_Value(tagname, timestamp):
 def Get_Tag_Values(tagname, timestart, timeend):
     tag = PIPoint.FindPIPoint(piServer, tagname) 
     tag_AFTimeRange = AFTimeRange(timestart, timeend)
-    tag_Boundary = AFBoundaryType.Inside
+    tag_Boundary = AFBoundaryType.Inside #options: (Inside,Outside,Interpolated)
     tag_AFValues = tag.RecordedValues(tag_AFTimeRange, tag_Boundary, '', False, 0)
     
-    # convert AFValues object into numpy array of values and timestamps
+    # convert AFValues object into numpy arrays of values and timestamps
     list_AFValues = list(tag_AFValues)
     array_Values = np.zeros((len(list_AFValues), 1), dtype='object')
     array_Timestamps = np.zeros((len(list_AFValues), 1), dtype='object')
@@ -73,8 +73,6 @@ def Update_Tag_Value(tagname, value, timestamp):
     tag_UpdateOption = AFUpdateOption.Replace #options: (Replace,Insert,NoReplace,ReplaceOnly,InsertNoCompression,Remove)
     tag_BufferOption = AFBufferOption.DoNotBuffer #options: (DoNotBuffer,BufferIfPossible,Buffer)
     tag.UpdateValue(tag_AFValue, tag_UpdateOption, tag_BufferOption)
-    return tag_AFValue
-
 
 
 
