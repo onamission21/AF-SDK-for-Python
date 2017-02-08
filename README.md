@@ -1,4 +1,4 @@
-# PI-SDK-for-Python
+# AF-SDK-for-Python
 User created OSI PI AF-SDK module for Python 
 
 This module utilizes pythonnet to access C# AF-SDK libraries from within python.
